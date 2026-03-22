@@ -1,6 +1,6 @@
-# 📚 CRUD de Alunos — React Native
+# 📚 CRUD de Alunos — React Native + TypeScript
 
-Aplicação mobile desenvolvida em React Native com Expo para gerenciamento completo de alunos, permitindo **Criar**, **Listar**, **Editar** e **Excluir** registros com persistência local via AsyncStorage.
+Aplicação mobile desenvolvida em **React Native com TypeScript e Expo** para gerenciamento completo de alunos, permitindo **Criar**, **Listar**, **Editar** e **Excluir** registros com persistência local via AsyncStorage.
 
 ---
 
@@ -61,14 +61,19 @@ Após rodar `npx expo start`, um QR Code será exibido no terminal.
 ### Bibliotecas Necessárias
 
 ```bash
-# Instaladas via npm install
+# Dependências de produção (instaladas via npm install)
 expo                                         # Framework base
 react                                        # Biblioteca React
 react-native                                 # Framework mobile
 expo-status-bar                              # Controle da status bar
 
-# Instalar via npx expo install
+# Dependência de armazenamento (instalar via npx expo install)
 @react-native-async-storage/async-storage   # Persistência local de dados
+
+# Dependências de desenvolvimento (devDependencies)
+typescript                                   # Compilador TypeScript
+@types/react                                 # Tipos para React
+@types/react-native                          # Tipos para React Native
 ```
 
 > ⚠️ **Importante:** Use sempre `npx expo install` para instalar pacotes compatíveis com a versão do Expo, evitando conflitos de versão.
@@ -81,8 +86,9 @@ expo-status-bar                              # Controle da status bar
 
 | Tecnologia | Versão | Descrição |
 |---|---|---|
-| **React Native** | 0.73.x | Framework multiplataforma (Android e iOS) usando JavaScript/JSX |
+| **React Native** | 0.73.x | Framework multiplataforma (Android e iOS) usando TypeScript/TSX |
 | **React** | 18.2.0 | Biblioteca para construção de interfaces baseada em componentes e hooks |
+| **TypeScript** | ^5.3.0 | Superset tipado do JavaScript — garante segurança de tipos em todo o projeto |
 | **Expo** | ~50.0.0 | Plataforma que facilita o desenvolvimento com toolchain integrada (build, hot reload) |
 
 ### Armazenamento
@@ -91,11 +97,21 @@ expo-status-bar                              # Controle da status bar
 |---|---|---|
 | **AsyncStorage** | 1.21.0 | Persistência local assíncrona, equivalente ao localStorage do browser |
 
+### Tipagem TypeScript
+
+| Type / Interface | Finalidade |
+|---|---|
+| `interface Aluno` | Define o shape dos dados: `id`, `nome`, `matricula`, `curso`, `nota` |
+| `useState<Aluno[]>` | Array tipado de alunos no estado |
+| `useState<string \| null>` | ID do aluno em edição (ou `null` se novo) |
+| `ListRenderItemInfo<Aluno>` | Tipagem do callback `renderItem` do FlatList |
+| `Promise<void>` | Retorno tipado das funções assíncronas |
+
 ### Componentes React Native
 
 | Componente | Finalidade |
 |---|---|
-| `FlatList` | Renderização performática da lista de alunos |
+| `FlatList<Aluno>` | Renderização performática da lista de alunos com genérico TypeScript |
 | `Modal` | Formulário de cadastro/edição em overlay |
 | `TextInput` | Campos de entrada do formulário |
 | `TouchableOpacity` | Botões interativos com feedback visual |
@@ -107,7 +123,7 @@ expo-status-bar                              # Controle da status bar
 
 | Hook | Finalidade |
 |---|---|
-| `useState` | Estado local: lista de alunos, campos do formulário, modal |
+| `useState` | Estado local com tipagem explícita: lista de alunos, campos do formulário, modal |
 | `useEffect` | Carrega dados do AsyncStorage ao iniciar o app |
 
 ---
@@ -120,6 +136,7 @@ expo-status-bar                              # Controle da status bar
 - ✅ **Excluir** aluno com confirmação via Alert
 - ✅ **Persistência** de dados com AsyncStorage
 - ✅ **Interface dark** com design moderno
+- ✅ **Tipagem estática** completa com TypeScript
 
 ---
 
@@ -127,7 +144,8 @@ expo-status-bar                              # Controle da status bar
 
 ```
 crud-alunos-react-native/
-├── App.js          # Componente principal com toda a lógica CRUD
+├── App.tsx         # Componente principal com toda a lógica CRUD (TypeScript)
+├── tsconfig.json   # Configuração do compilador TypeScript
 ├── app.json        # Configurações do Expo (nome, ícone, splash, etc.)
 ├── package.json    # Dependências e scripts do projeto
 └── README.md       # Documentação
